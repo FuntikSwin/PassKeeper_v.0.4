@@ -36,7 +36,7 @@ public class MainDbContext implements IDatabaseContext {
         Cursor cursor = mDb.rawQuery(
                 "select c.Id as CardId, c.Caption as CardCaption, c.CardGroupId, cs.GroupName " +
                         "from Card c " +
-                        "inner join CardGroup cs ON c.CardGroupId = cs.Id", null);
+                        "left join CardGroup cs ON c.CardGroupId = cs.Id", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             Card card = new Card(
@@ -120,10 +120,12 @@ public class MainDbContext implements IDatabaseContext {
     public boolean addCard(Card card) {
         ContentValues cv = new ContentValues();
         cv.put("Caption", card.getCaption());
-        cv.put("CardGroupId", card.getCardGroup().getId());
+        if (card.getCardGroup() != null) {
+            cv.put("CardGroupId", card.getCardGroup().getId());
+        }
         long cardId = mDb.insert("Card", null, cv);
 
-        if (cardId == 0) {
+        if (cardId <= 0) {
             return false;
         }
         for (CardField field : card.getCardFields()) {
@@ -131,8 +133,8 @@ public class MainDbContext implements IDatabaseContext {
             cv.put("Caption", field.getCaption());
             cv.put("FieldValue", field.getValue());
             cv.put("ValueTypeId", field.getCardFieldValueType().getId());
-            cv.put("CardId", card.getId());
-            mDb.insert("CardField", null, cv);
+            cv.put("CardId", cardId);
+            long idCardField = mDb.insert("CardField", null, cv);
         }
 
         return true;

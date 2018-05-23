@@ -13,8 +13,8 @@ public class App extends Application {
 
     @Override
     public void onCreate() {
-        mDbContext = new MockDbContext();
-        //mDbContext = new MainDbContext(this);
+        //mDbContext = new MockDbContext();
+        mDbContext = new MainDbContext(this);
 
         super.onCreate();
     }

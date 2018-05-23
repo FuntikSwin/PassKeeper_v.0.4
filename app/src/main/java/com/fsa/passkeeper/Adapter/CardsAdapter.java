@@ -24,6 +24,11 @@ public class CardsAdapter extends BaseAdapter {
         }
     }
 
+    public void updateData(List<Card> cards) {
+        mCards = cards;
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mCards != null ? mCards.size() : 0;
