@@ -1,11 +1,15 @@
 package com.fsa.passkeeper.Adapter;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.fsa.passkeeper.Model.CardField;
@@ -59,6 +63,23 @@ public class CardModifyFieldsAdapter extends BaseAdapter {
 
             EditText etFieldValue = view.findViewById(R.id.etFieldValue);
             etFieldValue.setText(cardField.getValue());
+
+            etFieldValue.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    cardField.setValue(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
 
             ImageButton btnDeleteField = view.findViewById(R.id.btnDeleteField);
             btnDeleteField.setOnClickListener(new View.OnClickListener() {

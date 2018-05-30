@@ -46,6 +46,7 @@ public class MainDbContext implements IDatabaseContext {
                             ? new CardGroup(cursor.getInt(2), cursor.getString(3))
                             : null,
                     null);
+
             cards.add(card);
             cursor.moveToNext();
         }
@@ -105,7 +106,8 @@ public class MainDbContext implements IDatabaseContext {
                     cv.put("Caption", cf.getCaption());
                     cv.put("FieldValue", cf.getValue());
                     cv.put("ValueTypeId", cf.getCardFieldValueType().getId());
-                    mDb.insert("CardField", null, cv);
+                    cv.put("CardId", card.getId());
+                    long idInserted = mDb.insert("CardField", null, cv);
                 }
             }
         }
@@ -113,7 +115,7 @@ public class MainDbContext implements IDatabaseContext {
         cv.clear();
         cv.put("Caption", card.getCaption());
         cv.put("CardGroupId", card.getCardGroup() != null ? card.getCardGroup().getId() : null);
-        mDb.update("Card", cv, "Id = " + card.getId(), null);
+        int updateRes = mDb.update("Card", cv, "Id = " + card.getId(), null);
     }
 
     @Override

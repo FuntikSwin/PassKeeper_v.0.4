@@ -46,7 +46,7 @@ public class CardModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_modify);
 
-        mDbContext = App.getDatabaseContext();
+        mDbContext = PassKeeperApp.getDatabaseContext();
 
         Intent intent = getIntent();
         String intentAction = intent.getAction();

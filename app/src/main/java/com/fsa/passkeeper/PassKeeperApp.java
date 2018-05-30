@@ -7,7 +7,7 @@ import com.fsa.passkeeper.Database.IDatabaseContext;
 import com.fsa.passkeeper.Database.MainDbContext;
 import com.fsa.passkeeper.Database.MockDbContext;
 
-public class App extends Application {
+public class PassKeeperApp extends Application {
 
     private static IDatabaseContext mDbContext;
 
