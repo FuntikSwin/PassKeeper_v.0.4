@@ -16,7 +16,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static String DB_NAME = "PassKeepers.db";
     private static String DB_PATH = "";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 1;
     private boolean mNeedUpdate;
     private SQLiteDatabase mDatabase;
 
